@@ -1,0 +1,546 @@
+/* CSS Variables for design consistency */
+:root {
+  --bg-cosmic: radial-gradient(circle at center, #1b1437 0%, #0c0822 100%);
+  --panel-glass: rgba(255, 255, 255, 0.06);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --panel-glow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --font-title: 'Fredoka', 'Outfit', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  
+  /* Rainbow Key Colors */
+  --color-c: #ff477e;
+  --color-d: #ff8500;
+  --color-e: #ffd000;
+  --color-f: #00f5d4;
+  --color-g: #00bbf9;
+  --color-a: #9b5de5;
+  --color-b: #f15bb5;
+  --color-c5: #00f5d4;
+}
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-cosmic);
+  color: #f3f4f6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  user-select: none;
+}
+
+/* Fullscreen Canvas Overlay for Sparkles */
+#sparkle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000; /* Over everything so sparkles cover the UI */
+}
+
+/* App Main Container */
+.app-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Header & Mascot styling */
+.app-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mascot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  height: 90px;
+  margin-bottom: 8px;
+}
+
+.mascot-star {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.4));
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mascot-star:hover {
+  transform: scale(1.15) rotate(15deg);
+}
+
+.mascot-star:active {
+  transform: scale(0.95);
+}
+
+.bubble-speech {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e1b4b;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: float 4s ease-in-out infinite alternate;
+  animation-delay: 0.5s;
+}
+
+.bubble-speech::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 10px 6px 0;
+  border-style: solid;
+  border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
+}
+
+.app-header h1 {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #ff477e, #ffd000, #00bbf9, #9b5de5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  font-weight: 300;
+}
+
+/* Glassmorphism Cards */
+.card {
+  background: var(--panel-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-glow);
+  border-radius: 24px;
+  padding: 24px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card h2 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* SECTION 1: Rainbow Piano styling */
+.section-piano {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 16px;
+  box-shadow: var(--panel-glow);
+}
+
+.piano-keyboard {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  height: 240px;
+  perspective: 800px;
+}
+
+.piano-key {
+  flex: 1;
+  border: none;
+  border-radius: 0 0 18px 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s ease, background 0.2s ease;
+  transform-origin: top;
+  box-shadow: 
+    0 6px 0 rgba(0, 0, 0, 0.25),
+    inset 0 -8px 10px rgba(0, 0, 0, 0.15),
+    inset 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Individual Piano Key Color Configurations */
+.key-c { background: linear-gradient(to bottom, #ff5c8a, var(--color-c)); }
+.key-d { background: linear-gradient(to bottom, #ff9e33, var(--color-d)); }
+.key-e { background: linear-gradient(to bottom, #ffe169, var(--color-e)); }
+.key-f { background: linear-gradient(to bottom, #33f8d7, var(--color-f)); }
+.key-g { background: linear-gradient(to bottom, #33c5f9, var(--color-g)); }
+.key-a { background: linear-gradient(to bottom, #af7df7, var(--color-a)); }
+.key-b { background: linear-gradient(to bottom, #ff7dc3, var(--color-b)); }
+.key-c5 { background: linear-gradient(to bottom, #33f8d7, var(--color-c5)); }
+
+.piano-key:hover {
+  transform: translateY(2px) scale(0.99);
+  box-shadow: 
+    0 4px 0 rgba(0, 0, 0, 0.25),
+    inset 0 -6px 8px rgba(0, 0, 0, 0.2),
+    inset 0 4px 8px rgba(255, 255, 255, 0.4);
+}
+
+.piano-key:active, .piano-key.active {
+  transform: translateY(8px) rotateX(-5deg);
+  box-shadow: 
+    0 0 0 rgba(0, 0, 0, 0.2),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 25px currentColor;
+  filter: brightness(1.1);
+}
+
+/* Key names and hints */
+.note-name {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e1b4b;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.key-hint {
+  display: block;
+  margin-top: 6px;
+  background: rgba(30, 27, 75, 0.15);
+  color: #1e1b4b;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Grid layout for Dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 850px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SECTION 2: Soundboard Styling */
+.soundboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.sound-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 18px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
+}
+
+.sound-btn .icon {
+  font-size: 2.2rem;
+  transition: transform 0.2s ease;
+}
+
+.sound-btn .label {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+}
+
+.sound-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.sound-btn:hover .icon {
+  transform: scale(1.2) rotate(8deg);
+}
+
+.sound-btn:active, .sound-btn.active {
+  transform: translateY(1px) scale(0.96);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 18px currentColor;
+}
+
+/* Color glowing overrides for Sound Board buttons when active */
+#btn-wand.active { color: #ffe600; text-shadow: 0 0 10px #ffe600; }
+#btn-bubble.active { color: #00ffcc; text-shadow: 0 0 10px #00ffcc; }
+#btn-laser.active { color: #ff3366; text-shadow: 0 0 10px #ff3366; }
+#btn-chime.active { color: #33ccff; text-shadow: 0 0 10px #33ccff; }
+#btn-giggle.active { color: #ff99ff; text-shadow: 0 0 10px #ff99ff; }
+#btn-drum.active { color: #ff9933; text-shadow: 0 0 10px #ff9933; }
+
+/* SECTION 3: Sequencer Beat Maker styling */
+.sequencer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, #00f5d4, #00bbf9);
+  color: #1e1b4b;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 245, 212, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 245, 212, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+.play-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 245, 212, 0.2);
+}
+
+.play-btn.playing {
+  background: linear-gradient(135deg, #f15bb5, #ff477e);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(241, 91, 181, 0.3);
+}
+
+.tempo-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tempo-control label {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Styles custom slider input range */
+.tempo-control input[type="range"] {
+  -webkit-appearance: none;
+  width: 100px;
+  background: rgba(255, 255, 255, 0.15);
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+.tempo-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffd000;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 208, 0, 0.5);
+  transition: transform 0.1s ease;
+}
+
+.tempo-control input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.tempo-display {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  color: #ffd000;
+  font-weight: 600;
+  min-width: 65px;
+}
+
+/* Sequencer Grid */
+.sequencer-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.seq-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seq-label {
+  font-family: var(--font-title);
+  font-weight: 600;
+  width: 70px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.seq-steps {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  flex: 1;
+}
+
+/* Sequencer Steps buttons resembling gems */
+.seq-step {
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.seq-step:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Active gem buttons by row (instrument type) */
+.seq-row[data-instrument="kick"] .seq-step.active {
+  background: radial-gradient(circle, #ff8500, #b24d00);
+  border-color: #ffaa33;
+  box-shadow: 0 0 12px rgba(255, 133, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.seq-row[data-instrument="clap"] .seq-step.active {
+  background: radial-gradient(circle, #ff477e, #b21e48);
+  border-color: #ff7aa0;
+  box-shadow: 0 0 12px rgba(255, 71, 126, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.seq-row[data-instrument="hat"] .seq-step.active {
+  background: radial-gradient(circle, #ffd000, #b28c00);
+  border-color: #ffe066;
+  box-shadow: 0 0 12px rgba(255, 208, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.seq-row[data-instrument="beep"] .seq-step.active {
+  background: radial-gradient(circle, #00bbf9, #0077b2);
+  border-color: #66d9ff;
+  box-shadow: 0 0 12px rgba(0, 187, 249, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Playing Head Sweep indicators */
+.seq-step.playing-head {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  transform: scale(0.95);
+}
+
+.seq-step.active.playing-head {
+  transform: scale(1.1);
+  filter: brightness(1.3);
+}
+
+/* Footer Styling */
+.app-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  padding: 16px 0;
+  font-weight: 300;
+}
+
+/* Float Animations for Mascot & Speeches */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Screen Size adjustments for layout items */
+@media (max-width: 550px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .piano-keyboard {
+    height: 180px;
+    gap: 4px;
+  }
+  
+  .note-name {
+    font-size: 1.2rem;
+  }
+  
+  .key-hint {
+    display: none; /* Hide keyboard shortcut hints on small screens */
+  }
+  
+  .soundboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .seq-label {
+    width: 50px;
+    font-size: 0.85rem;
+  }
+}

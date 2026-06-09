@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destiny's Music & Sparkle Sandbox | Magic Sound Playroom</title>
+  <meta name="description" content="Play music, create cool beats, and fill the screen with magical sparkles in Destiny's Music & Sparkle Sandbox. Built with love for Destiny.">
+  
+  <!-- Premium Fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <!-- Fullscreen Particle Canvas for Sparkles -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="mascot-container" id="mascot-container">
+        <svg class="mascot-star" viewBox="0 0 100 100" aria-label="Happy Sparkle Star Mascot">
+          <!-- Star shape -->
+          <polygon points="50,5 64,36 98,36 70,57 81,91 50,70 19,91 30,57 2,36 36,36" fill="url(#star-gradient)" filter="url(#glow)" />
+          <!-- Face details -->
+          <circle cx="38" cy="45" r="5" fill="#1e1b4b" />
+          <circle cx="62" cy="45" r="5" fill="#1e1b4b" />
+          <!-- Cheeks -->
+          <circle cx="32" cy="52" r="4" fill="#f43f5e" opacity="0.6" />
+          <circle cx="68" cy="52" r="4" fill="#f43f5e" opacity="0.6" />
+          <!-- Smile -->
+          <path d="M 42 55 Q 50 62 58 55" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round" fill="none" />
+          
+          <!-- Gradients and Glow filter -->
+          <defs>
+            <linearGradient id="star-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fbbf24" />
+              <stop offset="100%" stop-color="#f59e0b" />
+            </linearGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+        </svg>
+        <span class="bubble-speech" id="bubble-speech">Hi Destiny! Play some music! 🎵</span>
+      </div>
+      <h1>Destiny's Music &amp; Sparkle Sandbox</h1>
+      <p class="subtitle">Press keys, click buttons, and make the screen sparkle! ✨</p>
+    </header>
+
+    <main class="app-main">
+      <!-- Section 1: Rainbow Piano -->
+      <section class="section-piano" aria-labelledby="piano-heading">
+        <h2 id="piano-heading" class="sr-only">Rainbow Piano</h2>
+        <div class="piano-keyboard" id="piano-keyboard">
+          <button class="piano-key key-c" id="key-c4" data-note="261.63" data-letter="C" aria-label="Play C note">
+            <span class="note-name">C</span>
+            <kbd class="key-hint">A</kbd>
+          </button>
+          <button class="piano-key key-d" id="key-d4" data-note="293.66" data-letter="D" aria-label="Play D note">
+            <span class="note-name">D</span>
+            <kbd class="key-hint">S</kbd>
+          </button>
+          <button class="piano-key key-e" id="key-e4" data-note="329.63" data-letter="E" aria-label="Play E note">
+            <span class="note-name">E</span>
+            <kbd class="key-hint">D</kbd>
+          </button>
+          <button class="piano-key key-f" id="key-f4" data-note="349.23" data-letter="F" aria-label="Play F note">
+            <span class="note-name">F</span>
+            <kbd class="key-hint">F</kbd>
+          </button>
+          <button class="piano-key key-g" id="key-g4" data-note="392.00" data-letter="G" aria-label="Play G note">
+            <span class="note-name">G</span>
+            <kbd class="key-hint">G</kbd>
+          </button>
+          <button class="piano-key key-a" id="key-a4" data-note="440.00" data-letter="A" aria-label="Play A note">
+            <span class="note-name">A</span>
+            <kbd class="key-hint">H</kbd>
+          </button>
+          <button class="piano-key key-b" id="key-b4" data-note="493.88" data-letter="B" aria-label="Play B note">
+            <span class="note-name">B</span>
+            <kbd class="key-hint">J</kbd>
+          </button>
+          <button class="piano-key key-c5" id="key-c5" data-note="523.25" data-letter="C+" aria-label="Play C High note">
+            <span class="note-name">C+</span>
+            <kbd class="key-hint">K</kbd>
+          </button>
+        </div>
+      </section>
+
+      <!-- Grid for Soundboard and Beat Maker -->
+      <div class="dashboard-grid">
+        <!-- Section 2: Soundboard -->
+        <section class="card soundboard-card" aria-labelledby="soundboard-heading">
+          <h2 id="soundboard-heading">Magic Sound Board 🔮</h2>
+          <div class="soundboard-grid">
+            <button class="sound-btn" id="btn-wand" aria-label="Play Magic Wand sound">
+              <span class="icon">🪄</span>
+              <span class="label">Magic Wand</span>
+            </button>
+            <button class="sound-btn" id="btn-bubble" aria-label="Play Bubble Pop sound">
+              <span class="icon">🫧</span>
+              <span class="label">Bubble Pop</span>
+            </button>
+            <button class="sound-btn" id="btn-laser" aria-label="Play Space Laser sound">
+              <span class="icon">🚀</span>
+              <span class="label">Space Laser</span>
+            </button>
+            <button class="sound-btn" id="btn-chime" aria-label="Play Happy Chime sound">
+              <span class="icon">🔔</span>
+              <span class="label">Happy Chime</span>
+            </button>
+            <button class="sound-btn" id="btn-giggle" aria-label="Play Cute Giggle sound">
+              <span class="icon">🌈</span>
+              <span class="label">Cute Giggle</span>
+            </button>
+            <button class="sound-btn" id="btn-drum" aria-label="Play Mini Drum sound">
+              <span class="icon">🥁</span>
+              <span class="label">Mini Drum</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Section 3: Beat Maker -->
+        <section class="card sequencer-card" aria-labelledby="sequencer-heading">
+          <h2 id="sequencer-heading">Destiny's Beat Maker 🎧</h2>
+          <div class="sequencer-controls">
+            <button class="play-btn" id="seq-play" aria-label="Play or Pause Beat Maker">Play Beat ▶️</button>
+            <div class="tempo-control">
+              <label for="seq-tempo">🦄 Unicorn Speed:</label>
+              <input type="range" id="seq-tempo" min="60" max="180" value="120" step="5" aria-label="Adjust tempo (BPM)">
+              <span class="tempo-display" id="tempo-val">120 BPM</span>
+            </div>
+          </div>
+
+          <div class="sequencer-grid">
+            <div class="seq-row" data-instrument="kick">
+              <span class="seq-label">🥁 Kick</span>
+              <div class="seq-steps">
+                <button class="seq-step" data-step="0" aria-label="Kick step 1"></button>
+                <button class="seq-step" data-step="1" aria-label="Kick step 2"></button>
+                <button class="seq-step" data-step="2" aria-label="Kick step 3"></button>
+                <button class="seq-step" data-step="3" aria-label="Kick step 4"></button>
+                <button class="seq-step" data-step="4" aria-label="Kick step 5"></button>
+                <button class="seq-step" data-step="5" aria-label="Kick step 6"></button>
+                <button class="seq-step" data-step="6" aria-label="Kick step 7"></button>
+                <button class="seq-step" data-step="7" aria-label="Kick step 8"></button>
+              </div>
+            </div>
+            <div class="seq-row" data-instrument="clap">
+              <span class="seq-label">👏 Clap</span>
+              <div class="seq-steps">
+                <button class="seq-step" data-step="0" aria-label="Clap step 1"></button>
+                <button class="seq-step" data-step="1" aria-label="Clap step 2"></button>
+                <button class="seq-step" data-step="2" aria-label="Clap step 3"></button>
+                <button class="seq-step" data-step="3" aria-label="Clap step 4"></button>
+                <button class="seq-step" data-step="4" aria-label="Clap step 5"></button>
+                <button class="seq-step" data-step="5" aria-label="Clap step 6"></button>
+                <button class="seq-step" data-step="6" aria-label="Clap step 7"></button>
+                <button class="seq-step" data-step="7" aria-label="Clap step 8"></button>
+              </div>
+            </div>
+            <div class="seq-row" data-instrument="hat">
+              <span class="seq-label">✨ Hat</span>
+              <div class="seq-steps">
+                <button class="seq-step" data-step="0" aria-label="Hat step 1"></button>
+                <button class="seq-step" data-step="1" aria-label="Hat step 2"></button>
+                <button class="seq-step" data-step="2" aria-label="Hat step 3"></button>
+                <button class="seq-step" data-step="3" aria-label="Hat step 4"></button>
+                <button class="seq-step" data-step="4" aria-label="Hat step 5"></button>
+                <button class="seq-step" data-step="5" aria-label="Hat step 6"></button>
+                <button class="seq-step" data-step="6" aria-label="Hat step 7"></button>
+                <button class="seq-step" data-step="7" aria-label="Hat step 8"></button>
+              </div>
+            </div>
+            <div class="seq-row" data-instrument="beep">
+              <span class="seq-label">⭐ Beep</span>
+              <div class="seq-steps">
+                <button class="seq-step" data-step="0" aria-label="Beep step 1"></button>
+                <button class="seq-step" data-step="1" aria-label="Beep step 2"></button>
+                <button class="seq-step" data-step="2" aria-label="Beep step 3"></button>
+                <button class="seq-step" data-step="3" aria-label="Beep step 4"></button>
+                <button class="seq-step" data-step="4" aria-label="Beep step 5"></button>
+                <button class="seq-step" data-step="5" aria-label="Beep step 6"></button>
+                <button class="seq-step" data-step="6" aria-label="Beep step 7"></button>
+                <button class="seq-step" data-step="7" aria-label="Beep step 8"></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>Made with sparkles for Destiny 💖 Let's rock! 🎸</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
